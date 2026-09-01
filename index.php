@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Projeto simples PDO</title>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" >
 
 </head>
 
@@ -68,27 +69,7 @@
                         </thead>
 
                         <tbody id="tabelaProjetos">
-                            <tr>
-                                <th>1</th>
-                                <th>Projeto 1</th>
-                                <th>2 mês(es)</th>
-                                <th>Luan santana</th>
-                                <th>Editar - Excluir</th>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <th>Projeto 2</th>
-                                <th>3 mês(es)</th>
-                                <th>Gustavo lima</th>
-                                <th>Editar - Excluir</th>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <th>Projeto 3</th>
-                                <th>5 mês(es)</th>
-                                <th>eduardo costa</th>
-                                <th>Editar - Excluir</th>
-                            </tr>
+        
                         </tbody>
 
                     </table>
