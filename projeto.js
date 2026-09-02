@@ -42,3 +42,30 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     });
   }
+    // SALVAR PROJETO
+  // CADASTRAR OU EDITAR CREATE/UPDATE
+  async function salvarProjeto(event){
+    // Impede o recarregamento da pagina
+    event.preventDefault();
+
+    //Captura os dados do formulario
+    const formulario = document.getElementeById("formProjeto");
+    const dados = new FormData(formulario);
+
+    // envia os dados para o controller
+    const resposta = await fetch("ProjetoController.php?acao=cadastrar",{method: "POST", body:dados,});
+
+    // recebe a resposta do PHP
+     const resultado = await resposta.json();
+
+     // exibe a mensagem
+     alert(resultado.mensagem);
+
+     // se salvou com sucesso ...
+     if (resultado.sucesso == true) {
+      // atualiza a tabela
+      listarProjetos();
+
+     }
+  }
+
