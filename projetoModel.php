@@ -25,3 +25,40 @@ function cadastrarProjeto($pdo, $dados)
     ]);
 
 }
+// BUSCAR
+function buscarProjeto($pdo, $id)
+{
+    $stmt = $pdo->prepare("SELECT * FROM projetos WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch();
+
+}
+
+// EDITAR 
+
+function editarProjeto($pdo, $dados)
+{
+    $stmt = $pdo->prepare("
+   UPDATE projetos SET nome = ?,
+        duracao = ?,
+        responsavel = ?
+        WHERE id = ?
+   ");
+
+    $stmt->execute(
+        [
+        $dados["nome"],
+        $dados["duracao"],
+        $dados["responsavel"],
+        $dados["id"]
+        ]
+);
+}
+
+ // EXCLUIR
+ function excluirProjeto($pdo, $id)
+ {
+    $stmt = $pdo->prepare("DELETE FROM projetos WHERE id = ?");
+    $stmt->execute([$id]);
+
+ }

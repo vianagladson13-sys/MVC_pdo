@@ -20,13 +20,22 @@ switch ($acao) {
         $projetos = listarProjetos($pdo);
 
         echo json_encode([
-        "sucesso" => true,
-        "mensagem" => "Projetos listados.",
-        "dados" => $projetos
+            "sucesso" => true,
+            "mensagem" => "Projetos listados.",
+            "dados" => $projetos
         ]);
         break;
     // buscar
     case "buscar":
+        $projetos = buscarProjeto($pdo, $_GET["id"]);
+        echo json_encode([
+            "sucesso" => true,
+            "mensagem" => "Projetos encontrado.",
+            "dados" => $projetos
+
+        ]);
+
+
         break;
     // cadastrar
     case "cadastrar":
@@ -38,14 +47,37 @@ switch ($acao) {
             "dados" => null
         ]);
         break;
-        
+
     // editar
     case "editar":
+        editarProjeto($pdo, $_POST);
+
+        echo json_encode([
+            "sucesso" => true,
+            "mensagem" => "Projeto atualizado com sucesso.",
+            "dados" => NULL
+
+        ]);
         break;
+
+
     // excluir
     case "excluir":
+        excluirProjeto($pdo, $_POST["id"]);
+
+        echo json_encode([ 
+        "sucesso" => true,
+        "mensagem" => "Projeto excluido com sucesso.",
+        "dados" => null
+        ]);
         break;
+
     // ação nao encontrada
     default:
+    echo json_encode([ 
+        "sucesso" => true,
+        "mensagem" => "ação invalida.",
+        "dados" => null
+    ]);
         break;
 }

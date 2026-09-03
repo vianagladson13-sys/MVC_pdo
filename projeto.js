@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     //Captura os dados do formulario
-    const formulario = document.getElementeById("formProjeto");
+    const formulario = document.getElementById("formProjeto");
     const dados = new FormData(formulario);
 
     // envia os dados para o controller
@@ -63,9 +63,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
      // se salvou com sucesso ...
      if (resultado.sucesso == true) {
+
+      //RESETA O FORMULARIO PARA NOVO CADASTRO
+      limparFormProjeto();
+
       // atualiza a tabela
       listarProjetos();
 
      }
   }
+// NOVO PROJETO (LIMPA O FORMULARIO E PREPARA PARA CADASTRO)
+function limparFormProjeto(){
+ document.getElementById("formProjeto").reset();
+ document.getElementById("id").value = "";
+ document.getElementById("acao").value = "cadastrar";
+ document.getElementById("tituloFormulario").textContent = "Novo Projeto"
+}
+  //EDITAR PROJETO (UPDATE)
+  async function editarProjeto(id) {
+ // busca o projeto pelo ID
+ const resposta = await fetch(`ProjetoController.php?acao=buscar&id=${id}`);
+ const resultado = await resposta.json();
+ const projeto = resultado.dados;
 
+ //PREENCHE O FORMULARIO
+ document.getElementById("id").value = projeto.id;
+ document.getElementById("nome").value = projeto.nome;
+ document.getElementById("duracao").value = projeto.duracao;
+ document.getElementById ("responsavel").value = projeto.responsavel;
+
+ // ALTERA A AÇÃO PARA EDITAR
+ document.getElementById("acao").value = "editar";
+
+ // MUDA O TITULO
+ document.getElementById("tituloFormulario").textContent = "Editar projeto"
+
+ //POSICIONA O CURSOR NO NOME 
+ document.getElementById("nome").focus();
+ 
+}
+
+  // EXCLUIR PROJETO (DELETE)
+  async function excluirProjeto(id) {
+    // Confirma a exclusão
+    if (!confirm("Deseja excluir este projeto?")){
+      return;
+    }
+
+    // Cria os daddos da requisição
+    const dados = new FormData();
+    dados.append("acao", "excluir");
+    dados.append("id", id);
+
+    // ENVIAR PARA CONTROLLER
+    const resposta = await fetch("ProjetoController.php", {
+      method: "POST",
+      body: dados,
+    });
+
+      // RECEBE A RESPOSTA
+      const resultado = await resposta.json();
+
+      //EXIBE A MENSAGEM
+      alert(resultado.mensagem);
+
+      // ATUALIZA A TABELA 
+      listarProjetos();
+  }
